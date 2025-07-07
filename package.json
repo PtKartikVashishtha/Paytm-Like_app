@@ -1,5 +1,5 @@
 {
-  "name": "paytmVast",
+  "name": "paytm-vast",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -20,5 +20,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@prisma/client": "^6.11.1"
+  }
 }
