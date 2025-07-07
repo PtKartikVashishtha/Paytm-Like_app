@@ -1,6 +1,8 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import db from "@repo/db/client" ;
+import { JWT } from "next-auth/jwt";
+import { Session } from "next-auth";
 
 export const authOptions = {
     providers: [
@@ -46,4 +48,17 @@ export const authOptions = {
         })
     ] , 
     secret: process.env.JWT_SECRET || "secret",
+    callbacks : {
+        async session({ session , token} : {
+            token : JWT , 
+            session : Session
+        }){
+            if(token){
+                //@ts-ignore
+                session.user.id = token.sub ;
+            }
+            return session ;
+        }
+    }
+    
 };
