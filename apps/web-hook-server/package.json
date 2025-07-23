@@ -11,9 +11,13 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@repo/db" : "*" ,
+    "@repo/db": "*",
     "@types/express": "^5.0.3",
     "esbuild": "^0.25.5",
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
   }
 }

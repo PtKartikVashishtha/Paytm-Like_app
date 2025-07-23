@@ -1379,8 +1379,8 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: number
     name: string
-    email: string
-    number: string
+    email: string | null
+    number: string | null
     password: string
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -1456,8 +1456,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
-      email: string
-      number: string
+      email: string | null
+      number: string | null
       password: string
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -5145,7 +5145,7 @@ export namespace Prisma {
   interface OnRampTranstionFieldRefs {
     readonly id: FieldRef<"OnRampTranstion", 'Int'>
     readonly userId: FieldRef<"OnRampTranstion", 'Int'>
-    readonly amount: FieldRef<"OnRampTranstion", 'Int'>
+    readonly amount: FieldRef<"OnRampTranstion", 'Float'>
     readonly status: FieldRef<"OnRampTranstion", 'OnRampStatus'>
     readonly startTime: FieldRef<"OnRampTranstion", 'DateTime'>
     readonly token: FieldRef<"OnRampTranstion", 'String'>
@@ -5636,6 +5636,14 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   /**
    * Field references
    */
@@ -5684,6 +5692,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
    * Reference to a field of type 'OnRampStatus'
    */
   export type EnumOnRampStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OnRampStatus'>
@@ -5709,20 +5731,6 @@ export namespace Prisma {
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
-
-
-  /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
   /**
    * Deep Input Types
    */
@@ -5734,8 +5742,8 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
     name?: StringFilter<"User"> | string
-    email?: StringFilter<"User"> | string
-    number?: StringFilter<"User"> | string
+    email?: StringNullableFilter<"User"> | string | null
+    number?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     Balance?: BalanceListRelationFilter
     onRampTranstion?: OnRampTranstionListRelationFilter
@@ -5744,8 +5752,8 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    email?: SortOrder
-    number?: SortOrder
+    email?: SortOrderInput | SortOrder
+    number?: SortOrderInput | SortOrder
     password?: SortOrder
     Balance?: BalanceOrderByRelationAggregateInput
     onRampTranstion?: OnRampTranstionOrderByRelationAggregateInput
@@ -5767,8 +5775,8 @@ export namespace Prisma {
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    email?: SortOrder
-    number?: SortOrder
+    email?: SortOrderInput | SortOrder
+    number?: SortOrderInput | SortOrder
     password?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -5783,8 +5791,8 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
     name?: StringWithAggregatesFilter<"User"> | string
-    email?: StringWithAggregatesFilter<"User"> | string
-    number?: StringWithAggregatesFilter<"User"> | string
+    email?: StringNullableWithAggregatesFilter<"User"> | string | null
+    number?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringWithAggregatesFilter<"User"> | string
   }
 
@@ -5895,7 +5903,7 @@ export namespace Prisma {
     NOT?: OnRampTranstionWhereInput | OnRampTranstionWhereInput[]
     id?: IntFilter<"OnRampTranstion"> | number
     userId?: IntFilter<"OnRampTranstion"> | number
-    amount?: IntFilter<"OnRampTranstion"> | number
+    amount?: FloatFilter<"OnRampTranstion"> | number
     status?: EnumOnRampStatusFilter<"OnRampTranstion"> | $Enums.OnRampStatus
     startTime?: DateTimeFilter<"OnRampTranstion"> | Date | string
     token?: StringFilter<"OnRampTranstion"> | string
@@ -5914,16 +5922,16 @@ export namespace Prisma {
 
   export type OnRampTranstionWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    userId?: number
     token?: string
     AND?: OnRampTranstionWhereInput | OnRampTranstionWhereInput[]
     OR?: OnRampTranstionWhereInput[]
     NOT?: OnRampTranstionWhereInput | OnRampTranstionWhereInput[]
-    amount?: IntFilter<"OnRampTranstion"> | number
+    userId?: IntFilter<"OnRampTranstion"> | number
+    amount?: FloatFilter<"OnRampTranstion"> | number
     status?: EnumOnRampStatusFilter<"OnRampTranstion"> | $Enums.OnRampStatus
     startTime?: DateTimeFilter<"OnRampTranstion"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "userId" | "token">
+  }, "id" | "token">
 
   export type OnRampTranstionOrderByWithAggregationInput = {
     id?: SortOrder
@@ -5945,7 +5953,7 @@ export namespace Prisma {
     NOT?: OnRampTranstionScalarWhereWithAggregatesInput | OnRampTranstionScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"OnRampTranstion"> | number
     userId?: IntWithAggregatesFilter<"OnRampTranstion"> | number
-    amount?: IntWithAggregatesFilter<"OnRampTranstion"> | number
+    amount?: FloatWithAggregatesFilter<"OnRampTranstion"> | number
     status?: EnumOnRampStatusWithAggregatesFilter<"OnRampTranstion"> | $Enums.OnRampStatus
     startTime?: DateTimeWithAggregatesFilter<"OnRampTranstion"> | Date | string
     token?: StringWithAggregatesFilter<"OnRampTranstion"> | string
@@ -5953,8 +5961,8 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     name: string
-    email: string
-    number: string
+    email?: string | null
+    number?: string | null
     password: string
     Balance?: BalanceCreateNestedManyWithoutUserInput
     onRampTranstion?: OnRampTranstionCreateNestedManyWithoutUserInput
@@ -5963,8 +5971,8 @@ export namespace Prisma {
   export type UserUncheckedCreateInput = {
     id?: number
     name: string
-    email: string
-    number: string
+    email?: string | null
+    number?: string | null
     password: string
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
     onRampTranstion?: OnRampTranstionUncheckedCreateNestedManyWithoutUserInput
@@ -5972,8 +5980,8 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    number?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    number?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     Balance?: BalanceUpdateManyWithoutUserNestedInput
     onRampTranstion?: OnRampTranstionUpdateManyWithoutUserNestedInput
@@ -5982,8 +5990,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    number?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    number?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
     onRampTranstion?: OnRampTranstionUncheckedUpdateManyWithoutUserNestedInput
@@ -5992,23 +6000,23 @@ export namespace Prisma {
   export type UserCreateManyInput = {
     id?: number
     name: string
-    email: string
-    number: string
+    email?: string | null
+    number?: string | null
     password: string
   }
 
   export type UserUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    number?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    number?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    number?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    number?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
   }
 
@@ -6121,7 +6129,7 @@ export namespace Prisma {
   }
 
   export type OnRampTranstionUpdateInput = {
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
     status?: EnumOnRampStatusFieldUpdateOperationsInput | $Enums.OnRampStatus
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     token?: StringFieldUpdateOperationsInput | string
@@ -6131,7 +6139,7 @@ export namespace Prisma {
   export type OnRampTranstionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
     status?: EnumOnRampStatusFieldUpdateOperationsInput | $Enums.OnRampStatus
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     token?: StringFieldUpdateOperationsInput | string
@@ -6147,7 +6155,7 @@ export namespace Prisma {
   }
 
   export type OnRampTranstionUpdateManyMutationInput = {
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
     status?: EnumOnRampStatusFieldUpdateOperationsInput | $Enums.OnRampStatus
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     token?: StringFieldUpdateOperationsInput | string
@@ -6156,7 +6164,7 @@ export namespace Prisma {
   export type OnRampTranstionUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
     status?: EnumOnRampStatusFieldUpdateOperationsInput | $Enums.OnRampStatus
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     token?: StringFieldUpdateOperationsInput | string
@@ -6188,6 +6196,21 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type BalanceListRelationFilter = {
     every?: BalanceWhereInput
     some?: BalanceWhereInput
@@ -6198,6 +6221,11 @@ export namespace Prisma {
     every?: OnRampTranstionWhereInput
     some?: OnRampTranstionWhereInput
     none?: OnRampTranstionWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type BalanceOrderByRelationAggregateInput = {
@@ -6272,6 +6300,24 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumAuthTypeFilter<$PrismaModel = never> = {
@@ -6360,6 +6406,17 @@ export namespace Prisma {
     locked?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type EnumOnRampStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.OnRampStatus | EnumOnRampStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OnRampStatus[] | ListEnumOnRampStatusFieldRefInput<$PrismaModel>
@@ -6417,6 +6474,22 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type EnumOnRampStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.OnRampStatus | EnumOnRampStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OnRampStatus[] | ListEnumOnRampStatusFieldRefInput<$PrismaModel>
@@ -6471,6 +6544,10 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type BalanceUpdateManyWithoutUserNestedInput = {
@@ -6561,6 +6638,14 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type EnumOnRampStatusFieldUpdateOperationsInput = {
     set?: $Enums.OnRampStatus
   }
@@ -6600,6 +6685,20 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -6646,6 +6745,34 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumAuthTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.AuthType | EnumAuthTypeFieldRefInput<$PrismaModel>
     in?: $Enums.AuthType[] | ListEnumAuthTypeFieldRefInput<$PrismaModel>
@@ -6679,6 +6806,22 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedEnumOnRampStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -6799,7 +6942,7 @@ export namespace Prisma {
     NOT?: OnRampTranstionScalarWhereInput | OnRampTranstionScalarWhereInput[]
     id?: IntFilter<"OnRampTranstion"> | number
     userId?: IntFilter<"OnRampTranstion"> | number
-    amount?: IntFilter<"OnRampTranstion"> | number
+    amount?: FloatFilter<"OnRampTranstion"> | number
     status?: EnumOnRampStatusFilter<"OnRampTranstion"> | $Enums.OnRampStatus
     startTime?: DateTimeFilter<"OnRampTranstion"> | Date | string
     token?: StringFilter<"OnRampTranstion"> | string
@@ -6807,8 +6950,8 @@ export namespace Prisma {
 
   export type UserCreateWithoutBalanceInput = {
     name: string
-    email: string
-    number: string
+    email?: string | null
+    number?: string | null
     password: string
     onRampTranstion?: OnRampTranstionCreateNestedManyWithoutUserInput
   }
@@ -6816,8 +6959,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutBalanceInput = {
     id?: number
     name: string
-    email: string
-    number: string
+    email?: string | null
+    number?: string | null
     password: string
     onRampTranstion?: OnRampTranstionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -6840,8 +6983,8 @@ export namespace Prisma {
 
   export type UserUpdateWithoutBalanceInput = {
     name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    number?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    number?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     onRampTranstion?: OnRampTranstionUpdateManyWithoutUserNestedInput
   }
@@ -6849,16 +6992,16 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutBalanceInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    number?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    number?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     onRampTranstion?: OnRampTranstionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutOnRampTranstionInput = {
     name: string
-    email: string
-    number: string
+    email?: string | null
+    number?: string | null
     password: string
     Balance?: BalanceCreateNestedManyWithoutUserInput
   }
@@ -6866,8 +7009,8 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutOnRampTranstionInput = {
     id?: number
     name: string
-    email: string
-    number: string
+    email?: string | null
+    number?: string | null
     password: string
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
   }
@@ -6890,8 +7033,8 @@ export namespace Prisma {
 
   export type UserUpdateWithoutOnRampTranstionInput = {
     name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    number?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    number?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     Balance?: BalanceUpdateManyWithoutUserNestedInput
   }
@@ -6899,8 +7042,8 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutOnRampTranstionInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    number?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    number?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -6937,7 +7080,7 @@ export namespace Prisma {
   }
 
   export type OnRampTranstionUpdateWithoutUserInput = {
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
     status?: EnumOnRampStatusFieldUpdateOperationsInput | $Enums.OnRampStatus
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     token?: StringFieldUpdateOperationsInput | string
@@ -6945,7 +7088,7 @@ export namespace Prisma {
 
   export type OnRampTranstionUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
     status?: EnumOnRampStatusFieldUpdateOperationsInput | $Enums.OnRampStatus
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     token?: StringFieldUpdateOperationsInput | string
@@ -6953,7 +7096,7 @@ export namespace Prisma {
 
   export type OnRampTranstionUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    amount?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
     status?: EnumOnRampStatusFieldUpdateOperationsInput | $Enums.OnRampStatus
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     token?: StringFieldUpdateOperationsInput | string

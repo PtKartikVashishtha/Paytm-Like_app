@@ -160,6 +160,11 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
 exports.AuthType = exports.$Enums.AuthType = {
   Google: 'Google',
   Github: 'Github'

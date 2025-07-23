@@ -17,8 +17,8 @@ datasource db {
 model User {
   id              Int               @id @default(autoincrement())
   name            String
-  email           String            @unique
-  number          String            @unique
+  email           String?           @unique
+  number          String?           @unique
   password        String
   Balance         Balance[]
   onRampTranstion OnRampTranstion[]
@@ -41,8 +41,8 @@ model Balance {
 
 model OnRampTranstion {
   id        Int          @id @default(autoincrement())
-  userId    Int          @unique
-  amount    Int
+  userId    Int
+  amount    Float
   status    OnRampStatus
   startTime DateTime
   token     String       @unique

@@ -9,10 +9,10 @@ export const authOptions = {
         CredentialsProvider({
             name: "Credentials",
             credentials: {
-                phone: {
-                    label: "Phone Number",
+                phoneOrEmail: {
+                    label: "Phone Or Email",
                     type: "text",
-                    placeholder: "Enter your phone number",
+                    placeholder: "Enter your phone number Or Email",
                 },
                 password: {
                     label: "Password",
@@ -21,16 +21,37 @@ export const authOptions = {
                 }
             } , 
             async authorize(credentials : any){
-                const hashedPassword = await bcrypt.hash(credentials.password, 10);
-                console.log("Authorizing user with phone:", credentials.phone) ;
-                const existingUser = await db.user.findFirst({
-                    where : {
-                        number : credentials.phone
+                var existingUser : any = {} ;
+                if(credentials.phoneOrEmail.includes("@")) {
+                    console.log("checking existing user with email") ;
+                    const user = await db.user.findFirst({
+                        where : {
+                            email : credentials.phoneOrEmail
+                        }
+                    }) ;
+                    if(user){
+                        existingUser = user ;
                     }
-                }) ;
-                console.log("checking existing user") ;
+                    else{
+                        return null ;
+                    }
+                }
+                else{
+                    console.log("checking existing user with number") ;
+                    const user = await db.user.findFirst({
+                        where : {
+                            number : credentials.phoneOrEmail
+                        }
+                    }) ;
+                    if(user){
+                        existingUser = user ;
+                    }
+                    else{
+                        return null ;
+                    }
+                }
                 if(existingUser) {
-                    const passwordValidation = await bcrypt.compare(credentials.password, existingUser.password) ;
+                    const passwordValidation = await bcrypt.compare(credentials.password , existingUser.password) ;
                     if(passwordValidation){
                         console.log("User found and password matches") ;
                         return {
@@ -59,6 +80,8 @@ export const authOptions = {
             }
             return session ;
         }
+    } , 
+    pages : {
+        signin : "signin"
     }
-    
 };

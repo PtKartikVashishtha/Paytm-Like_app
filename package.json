@@ -22,6 +22,11 @@
     "packages/*"
   ],
   "dependencies": {
-    "@prisma/client": "^6.11.1"
+    "@headlessui/react": "^2.2.4",
+    "@prisma/client": "^6.11.1",
+    "axios": "^1.10.0",
+    "cors": "^2.8.5",
+    "framer-motion": "^12.23.6",
+    "jotai": "^2.12.5"
   }
 }

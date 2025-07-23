@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { NextSessionProvider } from "./NextSessionProvider";
+import AppBarProvider from "./components/AppBarProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextSessionProvider>
-          {children}
+            {children}
         </NextSessionProvider>
       </body>
     </html>
