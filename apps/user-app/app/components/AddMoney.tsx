@@ -5,10 +5,11 @@ import { Button } from "./Button"
 import { InputBox } from "./InputBox"
 import { urlAtom } from "../atoms/urlAtom"
 import axios from "axios"
-import { amountAtom } from "../atoms/amountAtom"
-import { TOken } from "../api/auth/start-transaction/route"
+import { amountAtom } from "../atoms/amountAtom" ;
+import { statusAtom } from "../atoms/statusAtom" 
 
 export const AddMoney = () => {
+    const [status , setStatus] = useAtom(statusAtom) ;
     const [amount , setAmount ] = useAtom(amountAtom) ;
     const [url , setUrl] = useAtom(urlAtom) ;
     return (
@@ -26,10 +27,17 @@ export const AddMoney = () => {
                         alert("Please Select Bank") ;
                         return ;
                     }
-                    axios.post("api/auth/start-transaction" , {
+                    if(status === "Processing"){
+                        alert("Transaction Already in Progress") ;
+                        return ;
+                    }
+                    setStatus("Processing") ;
+                    await axios.post("api/auth/start-transaction" , {
                         amount : amount
-                    })
-                    location.href = url+`?token=${TOken}`
+                    }) ;
+                    location.href = url ;
+                    setStatus("FailedOrSuccess") ;
+                    
                 }}/>
             </div>
         </div>

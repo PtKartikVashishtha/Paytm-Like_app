@@ -4,7 +4,7 @@ import { authOptions } from "../../../../../lib/auth";
 import db from "@repo/db/client" ;
 
 export const GET: (req: NextRequest) => Promise<NextResponse> = async (req: NextRequest) => {
-
+    //@ts-ignore
     const session = await getServerSession(authOptions) ;
 
     if(!session){
