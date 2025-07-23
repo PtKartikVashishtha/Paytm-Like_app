@@ -6,6 +6,7 @@ import { InputBox } from "./InputBox"
 import { urlAtom } from "../atoms/urlAtom"
 import axios from "axios"
 import { amountAtom } from "../atoms/amountAtom"
+import { TOken } from "../api/auth/start-transaction/route"
 
 export const AddMoney = () => {
     const [amount , setAmount ] = useAtom(amountAtom) ;
@@ -28,7 +29,7 @@ export const AddMoney = () => {
                     axios.post("api/auth/start-transaction" , {
                         amount : amount
                     })
-                    window.open(url);
+                    location.href = url+`?token=${TOken}`
                 }}/>
             </div>
         </div>

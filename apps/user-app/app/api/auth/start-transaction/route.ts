@@ -4,7 +4,7 @@ import { authOptions } from "../../../../../lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import axios from "axios";
-
+export var TOken = "" ;
 export const POST = async (req : NextRequest) => {
     const body : {amount : number} = await req.json() ;
     console.log(body) ;
@@ -22,7 +22,8 @@ export const POST = async (req : NextRequest) => {
     //@ts-ignore
     const userId = session.user.id ;
     try{
-        const token = await bcrypt.hash(userId+body.amount , 10)
+        const token = await bcrypt.hash(userId+body.amount , 10) ;
+        TOken = token ;
         transaction = await db.onRampTranstion.create({
             data : {
                 userId : JSON.parse(userId),
@@ -32,7 +33,8 @@ export const POST = async (req : NextRequest) => {
                 status : "Processing"
             }
         }) ;
-        console.log(transaction)
+        console.log(transaction) ; 
+    
         const response = await axios.post('http://localhost:3003', {
             userId : JSON.parse(userId),
             amount: body.amount,
