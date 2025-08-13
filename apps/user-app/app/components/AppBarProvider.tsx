@@ -6,7 +6,7 @@ export default function AppBarProvider({ children }: { children: React.ReactNode
   return (
     <>
       <AppBar label="Logout" />
-      {children}
+      <main className="">{children}</main>
     </>
   );
 }

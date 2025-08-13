@@ -1,4 +1,6 @@
+import { AllTransactions } from "../../components/AllTransactions";
 import { PageTitle } from "../../components/PageTitle";
+import { RecentTransactions } from "../../components/RecentTransactions";
 import { SideBar } from "../../components/SideBar";
 
 
@@ -8,7 +10,12 @@ export default function () {
            
            <div className="flex">
                 <SideBar/>
-                <PageTitle title={"Transactions"}/>
+                <div className="w-full">
+                    <PageTitle title={"Transactions"}/>
+                    <div>
+                        <AllTransactions/>
+                    </div>
+                </div>
             </div>
         </div>
     )

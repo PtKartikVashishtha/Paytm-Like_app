@@ -151,6 +151,15 @@ exports.Prisma.OnRampTranstionScalarFieldEnum = {
   token: 'token'
 };
 
+exports.Prisma.P2pTransactionsScalarFieldEnum = {
+  id: 'id',
+  SenderUserId: 'SenderUserId',
+  RecieverUserId: 'RecieverUserId',
+  amount: 'amount',
+  status: 'status',
+  startTime: 'startTime'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -180,7 +189,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   Merchant: 'Merchant',
   Balance: 'Balance',
-  OnRampTranstion: 'OnRampTranstion'
+  OnRampTranstion: 'OnRampTranstion',
+  p2pTransactions: 'p2pTransactions'
 };
 
 /**

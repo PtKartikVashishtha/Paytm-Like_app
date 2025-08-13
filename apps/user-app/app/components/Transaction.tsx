@@ -8,7 +8,8 @@ interface singleUnit {
     dateTime : Date ,
     amount : number ,
     status : Status ,
-    token? : string
+    token? : string ,
+    transactionId? : number
 }
 const statusMap: Record<Status, string> = {
   [Status.Success]: "Success",
@@ -20,7 +21,7 @@ interface TransactionType {
     transaction : singleUnit
 }
 
-function formatDate(date?: Date | string | null): string {
+export function formatDate(date?: Date | string | null): string {
   if (!date) return "Invalid Date";
   const d = new Date(date);
   if (isNaN(d.getTime())) return "Invalid Date";
@@ -33,6 +34,7 @@ function formatDate(date?: Date | string | null): string {
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
+    timeZone: "Asia/Kolkata",
   };
 
   const formatted = d.toLocaleString("en-US", options);
@@ -53,7 +55,12 @@ export const Transaction = (props : TransactionType) => {
     return <div className="pb-2 mb-2 border-b-1 border-gray-300">
         <div className="flex justify-between items-center">
             <div>
-                <div className="font-serif text-md">Recived INR</div>
+                <div className="flex items-center">
+                    <div className="font-serif text-md">Recived INR</div>
+                    {props.transaction.transactionId ? <div className="ml-2 font-serif text-sm flex items-center">
+                        (Transaction ID : {<div className="font-mono text-md ml-1">{props.transaction.transactionId}</div>})
+                    </div> : <div></div>}
+                </div>
                 <div className="font-sans text-sm pt-2 text-gray-700 flex items-center font-medium">
                     {formatDate(props.transaction.dateTime)}
                     <div className={`ml-2 text-sm font-semibold font-serif ${fontColour}`}>({props.transaction.status})</div>

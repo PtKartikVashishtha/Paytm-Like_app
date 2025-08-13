@@ -15,13 +15,15 @@ datasource db {
 }
 
 model User {
-  id              Int               @id @default(autoincrement())
-  name            String
-  email           String?           @unique
-  number          String?           @unique
-  password        String
-  Balance         Balance[]
-  onRampTranstion OnRampTranstion[]
+  id                   Int               @id @default(autoincrement())
+  name                 String
+  email                String?           @unique
+  number               String?           @unique
+  password             String
+  Balance              Balance[]
+  onRampTranstion      OnRampTranstion[]
+  sentTransactions     p2pTransactions[] @relation("SentTransactions")
+  receivedTransactions p2pTransactions[] @relation("ReceivedTransactions")
 }
 
 model Merchant {
@@ -47,6 +49,17 @@ model OnRampTranstion {
   startTime DateTime
   token     String       @unique
   user      User         @relation(fields: [userId], references: [id])
+}
+
+model p2pTransactions {
+  id             Int          @id @default(autoincrement())
+  SenderUserId   Int
+  RecieverUserId Int
+  amount         Float
+  status         OnRampStatus
+  startTime      DateTime
+  sender         User         @relation("SentTransactions", fields: [SenderUserId], references: [id])
+  receiver       User         @relation("ReceivedTransactions", fields: [RecieverUserId], references: [id])
 }
 
 enum AuthType {

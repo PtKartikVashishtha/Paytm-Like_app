@@ -36,7 +36,6 @@ export const POST = async (req : NextRequest) => {
             }
         }) ;
         console.log(transaction) ; 
-        await setTimeout(async () => {} , 1000);
         const response = await axios.post('http://localhost:3003', {
             userId : JSON.parse(userId),
             amount: body.amount,

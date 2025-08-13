@@ -32,10 +32,10 @@ export const AddMoney = () => {
                         return ;
                     }
                     setStatus("Processing") ;
+                    location.href = url ;
                     await axios.post("api/auth/start-transaction" , {
                         amount : amount
                     }) ;
-                    location.href = url ;
                     setStatus("FailedOrSuccess") ;
                     
                 }}/>

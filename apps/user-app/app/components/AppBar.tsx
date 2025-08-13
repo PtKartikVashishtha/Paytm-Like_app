@@ -8,7 +8,7 @@ interface AppBarProps {
 
 export const AppBar = (props : AppBarProps) => {
     return (
-        <div className="border-b-3 border-gray-300 flex justify-between pb-2 bg-pink-50">
+        <div className="border-b-3 border-gray-300 flex justify-between pb-2 ">
             <div className="font-bold font-serif text-4xl text-purple-700 pl-4 mt-3">
                 PAytm
             </div>

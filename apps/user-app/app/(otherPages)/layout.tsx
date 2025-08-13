@@ -8,7 +8,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body>
+      <body className="min-h-screen flex flex-col bg-gradient-to-br from-pink-100 via-purple-50 to-pink-200 overflow-x-hidden">
         <AppBarProvider>
           {children}
         </AppBarProvider>
