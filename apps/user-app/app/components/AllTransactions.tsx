@@ -9,7 +9,7 @@ export const AllTransactions = () => {
     const [transactions , setTransactions] = useAtom(allTransactionsAtom);
     return (
         <div className="mt-9 ml-6 mr-6">
-            <Boxtitle label={"All Transactions"} text="text-xl" className={"font-semibold border-b-1 mb-3"}/>
+            <Boxtitle label={"SELF Transactions"} text="text-xl" className={"font-semibold border-b-1 mb-3"}/>
             {transactions.length ? (
                 transactions.map((transaction , index) => (
                     <div>

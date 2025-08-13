@@ -43,6 +43,10 @@ export const SendMoney = () => {
         if(message.date){
             router.push(`/sent?recieverName=${message.recieverName}&amount=${p2p.amount/100}&date=${message.date}&status=${message.status}`) ;
             setLoading(false) ;
+            setP2p({
+                numberOrEmail : "" ,
+                amount : 0
+            }) ;
             return ;
         }
         //@ts-ignore
@@ -50,13 +54,22 @@ export const SendMoney = () => {
         setLoading(false) ;
     }
     return (
-        <div className="w-150">
-            <Boxtitle label={"Payment"} className={"font-semibold border-b-1 flex justify-center text-purple-700"} text="text-3xl"/>
-            <div className="mt-5"></div>
-            <SearchBarForSendMoney label="Number Or Email" placeholder="Enter Number" onChange={onChangeNumberOrEmail}/>
-            <SearchBarForSendMoney label="Amount" placeholder="Enter Amount" type="number" onChange={onChangeAmount}/>
-            <div className="flex justify-center">
-                <Button label={loading ? "processing" : "Send Money"} className={"w-30 text-md mt-6 shadow-md p-2"} onClick={onClick} />
+        <div>
+            {loading && (
+                <div className="fixed inset-0 bg-black bg-opacity-70 flex flex-col items-center justify-center z-50">
+                        <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+                        <p className="mt-4 text-white text-lg font-semibold animate-pulse">Processing...</p>
+                    </div>
+                )}
+
+            <div className="w-150">
+                <Boxtitle label={"Payment"} className={"font-semibold border-b-1 flex justify-center text-purple-700"} text="text-3xl"/>
+                <div className="mt-5"></div>
+                <SearchBarForSendMoney label="Number Or Email" placeholder="Enter Number" onChange={onChangeNumberOrEmail}/>
+                <SearchBarForSendMoney label="Amount" placeholder="Enter Amount" type="number" onChange={onChangeAmount}/>
+                <div className="flex justify-center">
+                    <Button label={loading ? "processing" : "Send Money"} className={"w-30 text-md mt-6 shadow-md p-2"} onClick={onClick} />
+                </div>
             </div>
         </div>
     )

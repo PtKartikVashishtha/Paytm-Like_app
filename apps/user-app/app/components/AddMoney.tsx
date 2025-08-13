@@ -37,7 +37,8 @@ export const AddMoney = () => {
                         amount : amount
                     }) ;
                     setStatus("FailedOrSuccess") ;
-                    
+                    setAmount(0) ;
+                    setUrl("") ;
                 }}/>
             </div>
         </div>

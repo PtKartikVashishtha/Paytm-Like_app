@@ -15,7 +15,7 @@ interface atomType {
 }
 
 export const transactionsAtom = atom(async () => {
-    const response = await axios.get("http://localhost:3000/api/auth/user-details" , { withCredentials: true });
+    const response = await axios.get("api/auth/user-details" , { withCredentials: true });
     const data = response.data.transaction ;
     const formatted = data.map((tx: any) => ({
         dateTime: new Date(tx.startTime), 
